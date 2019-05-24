@@ -17,7 +17,7 @@
             android:soundEffectsEnabled="false" android:layout_marginStart="16dp"
             app:layout_constraintEnd_toStartOf="@+id/s5button" android:layout_marginEnd="16dp"
             android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/button3"
-            app:layout_constraintHorizontal_bias="0.5"/>
+            app:layout_constraintHorizontal_bias="0.5" style="@style/AppTheme"/>
     <Button
             android:text="@string/button_play"
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:onClick="playSample" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp" android:layout_marginTop="32dp"
             app:layout_constraintTop_toBottomOf="@+id/button3" app:layout_constraintStart_toEndOf="@+id/s1button"
-            app:layout_constraintHorizontal_bias="0.5"/>
+            app:layout_constraintHorizontal_bias="0.5" style="@style/AppTheme"/>
     <Spinner
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toBottomOf="@+id/s1button" android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/s6button" android:layout_marginStart="16dp"
-            android:onClick="playSample"/>
+            android:onClick="playSample" style="@style/AppTheme"/>
     <Button
             android:text="@string/button_6th"
             android:layout_width="0dp"
@@ -59,7 +59,7 @@
             android:layout_marginStart="16dp" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/s5button" android:layout_marginEnd="16dp"
-            android:onClick="playSample"/>
+            android:onClick="playSample" style="@style/AppTheme"/>
     <Button
             android:text="@string/button_3rd"
             android:layout_width="0dp"
@@ -68,7 +68,8 @@
             app:layout_constraintTop_toBottomOf="@+id/s2button" android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/s7button"
-            android:layout_marginEnd="16dp" android:onClick="playSample" android:textAllCaps="false"/>
+            android:layout_marginEnd="16dp" android:onClick="playSample" android:textAllCaps="false"
+            style="@style/AppTheme"/>
     <Button
             android:text="@string/button_7th"
             android:layout_width="0dp"
@@ -76,7 +77,7 @@
             android:id="@+id/s7button" android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/s6button" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp" app:layout_constraintStart_toEndOf="@+id/s3button"
-            app:layout_constraintHorizontal_bias="0.5" android:onClick="playSample"/>
+            app:layout_constraintHorizontal_bias="0.5" android:onClick="playSample" style="@style/AppTheme"/>
     <Button
             android:text="@string/button_4th"
             android:layout_width="0dp"
@@ -85,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@+id/s3button" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
             android:onClick="playSample" android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/s7button"/>
+            app:layout_constraintEnd_toStartOf="@+id/s7button" style="@style/AppTheme"/>
     <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
