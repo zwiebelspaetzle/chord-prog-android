@@ -5,23 +5,19 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity" android:layoutMode="opticalBounds" android:focusableInTouchMode="true"
+        tools:actionBarNavMode="standard">
     <Button
             android:text="@string/button_root"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="136dp"
-            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/s1button"
-            app:layout_constraintHorizontal_bias="0.498" android:onClick="playSample"
-            android:soundEffectsEnabled="false"/>
-    <Button
-            android:text="@string/button_2nd"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/s2button" app:layout_constraintTop_toBottomOf="@+id/s1button"
-            android:layout_marginTop="16dp" android:onClick="playSample" android:soundEffectsEnabled="false"
-            app:layout_constraintHorizontal_bias="0.498"/>
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/s1button"
+            android:onClick="playSample"
+            android:soundEffectsEnabled="false" android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/s5button" android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/button3"
+            app:layout_constraintHorizontal_bias="0.5"/>
     <Button
             android:text="@string/button_play"
             android:layout_width="wrap_content"
@@ -29,47 +25,74 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent" android:id="@+id/button3" android:onClick="playWhiskey"/>
     <Button
-            android:text="@string/button_3rd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/s3button" android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/s2button" android:onClick="playSample"
-            android:soundEffectsEnabled="false"/>
-    <Button
-            android:text="@string/button_4th"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/s4button" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/s3button" android:onClick="playSample"/>
-    <Button
             android:text="@string/button_5th"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/s5button" app:layout_constraintTop_toBottomOf="@+id/s4button"
-            android:layout_marginTop="16dp" android:onClick="playSample"/>
+            android:id="@+id/s5button"
+            android:onClick="playSample" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/button3" app:layout_constraintStart_toEndOf="@+id/s1button"
+            app:layout_constraintHorizontal_bias="0.5"/>
+    <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/spinner"
+            android:entries="@array/keys_array"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@+id/editText"
+            app:layout_constraintBaseline_toBaselineOf="@+id/editText" android:spinnerMode="dropdown"/>
+    <Button
+            android:text="@string/button_2nd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/s2button"
+            app:layout_constraintTop_toBottomOf="@+id/s1button" android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/s6button" android:layout_marginStart="16dp"
+            android:onClick="playSample"/>
     <Button
             android:text="@string/button_6th"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/s6button" app:layout_constraintTop_toBottomOf="@+id/s5button"
-            android:layout_marginTop="16dp" android:onClick="playSample"/>
+            android:id="@+id/s6button" app:layout_constraintStart_toEndOf="@+id/s2button"
+            android:layout_marginStart="16dp" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/s5button" android:layout_marginEnd="16dp"
+            android:onClick="playSample"/>
+    <Button
+            android:text="@string/button_3rd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/s3button"
+            app:layout_constraintTop_toBottomOf="@+id/s2button" android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/s7button"
+            android:layout_marginEnd="16dp" android:onClick="playSample" android:textAllCaps="false"/>
     <Button
             android:text="@string/button_7th"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/s7button" app:layout_constraintTop_toBottomOf="@+id/s6button"
-            android:layout_marginTop="16dp" android:onClick="playSample"/>
-    <Spinner
-            android:layout_width="395dp"
+            android:id="@+id/s7button" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/s6button" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp" app:layout_constraintStart_toEndOf="@+id/s3button"
+            app:layout_constraintHorizontal_bias="0.5" android:onClick="playSample"/>
+    <Button
+            android:text="@string/button_4th"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/spinner"
-            app:layout_constraintBottom_toBottomOf="parent" android:entries="@array/keys_array"
-            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/s7button"
-            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.073"/>
+            android:id="@+id/s4button" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/s3button" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:onClick="playSample" android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/s7button"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_key"
+            android:ems="10"
+            android:id="@+id/editText" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/s4button" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp" app:layout_constraintEnd_toStartOf="@+id/spinner"
+            android:layout_marginEnd="16dp" android:textAlignment="viewEnd"/>
 </android.support.constraint.ConstraintLayout>

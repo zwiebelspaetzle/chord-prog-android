@@ -8,6 +8,7 @@
     <string name="button_6th">vi</string>
     <string name="button_7th">viiº</string>
     <string name="button_play">Play Tune</string>
+    <string name="text_key">Key:</string>
 
     <string-array name="keys_array">
         <item>C</item>
