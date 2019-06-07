@@ -9,19 +9,19 @@
     <string name="button_7th">viiº</string>
     <string name="button_play">Play Tune</string>
     <string name="text_key">Key:</string>
-
+    <string name="key_spinner_prompt">Select Key</string>
     <string-array name="keys_array">
-        <item>C</item>
-        <item>G</item>
-        <item>D</item>
-        <item>A</item>
-        <item>E</item>
-        <item>B</item>
         <item>G♭</item>
         <item>D♭</item>
         <item>A♭</item>
         <item>E♭</item>
         <item>B♭</item>
         <item>F</item>
+        <item>C</item>
+        <item>G</item>
+        <item>D</item>
+        <item>A</item>
+        <item>E</item>
+        <item>B</item>
     </string-array>
 </resources>

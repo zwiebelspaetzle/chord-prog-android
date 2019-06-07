@@ -37,11 +37,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/spinner"
-            android:entries="@array/keys_array"
+            android:id="@+id/keySpinner"
             android:layout_marginEnd="16dp"
             app:layout_constraintStart_toEndOf="@+id/editText"
-            app:layout_constraintBaseline_toBaselineOf="@+id/editText" android:spinnerMode="dropdown"/>
+            app:layout_constraintBaseline_toBaselineOf="@+id/editText" android:spinnerMode="dropdown"
+            android:entries="@array/keys_array" android:prompt="@string/key_spinner_prompt"/>
     <Button
             android:text="@string/button_2nd"
             android:layout_width="0dp"
@@ -94,6 +94,6 @@
             android:ems="10"
             android:id="@+id/editText" android:layout_marginTop="32dp"
             app:layout_constraintTop_toBottomOf="@+id/s4button" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" app:layout_constraintEnd_toStartOf="@+id/spinner"
+            android:layout_marginStart="16dp" app:layout_constraintEnd_toStartOf="@+id/keySpinner"
             android:layout_marginEnd="16dp" android:textAlignment="viewEnd"/>
 </android.support.constraint.ConstraintLayout>
