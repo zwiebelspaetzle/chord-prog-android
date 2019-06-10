@@ -9,9 +9,8 @@ import android.media.AudioManager
 import android.media.AudioAttributes
 import android.os.Build
 import android.util.Log
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.*
+
 val defaultKey = "C"
 
 // adding AdapterView.OnItemSelectedListener to handle spinner in same file
@@ -33,6 +32,23 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             onItemSelectedListener = this@MainActivity
             setSelection(keys.indexOf(defaultKey))
         }
+
+        // set up track volume seekbar
+        val trackVolumeSeekBar: SeekBar = findViewById(R.id.trackVolumeSeekBar)
+        trackVolumeSeekBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int,
+                                           fromUser: Boolean) {
+                Toast.makeText(applicationContext, "seekbar progress: $progress", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                Toast.makeText(applicationContext, "seekbar touch started!", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                Toast.makeText(applicationContext, "seekbar touch stopped!", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         val audioAttributes = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_GAME)
@@ -118,5 +134,18 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     fun playWhiskey(view: View) {
         var mediaPlayer: MediaPlayer? = MediaPlayer.create(this, R.raw.whiskey)
         mediaPlayer?.start()
+    }
+
+    fun playRemoteClick(view: View) {
+        playRemote()
+    }
+
+    fun playRemote(url: String = "https://www.youtube.com/watch?v=6s8Mmc69CP8") {
+        val mediaPlayer: MediaPlayer? = MediaPlayer().apply {
+            setAudioStreamType(AudioManager.STREAM_MUSIC)
+            setDataSource(url)
+            prepare() // buffer
+            start()
+        }
     }
 }

@@ -10,6 +10,8 @@
     <string name="button_play">Play Tune</string>
     <string name="text_key">Key:</string>
     <string name="key_spinner_prompt">Select Key</string>
+    <string name="track_valume_label">Track Volume</string>
+    <string name="sample_valume_label">Sample Volume</string>
     <string-array name="keys_array">
         <item>G♭</item>
         <item>D♭</item>
