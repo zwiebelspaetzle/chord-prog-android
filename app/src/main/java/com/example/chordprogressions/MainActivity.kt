@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
         })
 
+        // set up samples
         val audioAttributes = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_GAME)
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -88,7 +89,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             .setAudioAttributes(audioAttributes)
             .build()
 
-        // set samples from our selected key
         setSamplesFromKey(keys[keySpinner.selectedItemPosition].toLowerCase())
     }
 
