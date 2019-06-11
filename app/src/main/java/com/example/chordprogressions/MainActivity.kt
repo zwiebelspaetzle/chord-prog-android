@@ -5,25 +5,32 @@ import android.os.Bundle
 import android.media.MediaPlayer
 import android.media.SoundPool
 import android.view.View
-import android.media.AudioManager
 import android.media.AudioAttributes
-import android.os.Build
 import android.util.Log
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.SeekBar
+import android.widget.Spinner
+
 
 val defaultKey = "C"
 
 // adding AdapterView.OnItemSelectedListener to handle spinner in same file
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private val semitones = arrayOf("c", "cs", "d", "ds", "e", "f", "fs", "g", "gs", "a", "as", "b")
+    private lateinit var mediaPlayer: MediaPlayer
     private lateinit var soundPool: SoundPool
     private lateinit var keys: Array<String>
-    private var currentKey = "c"
     private var sampleArray = IntArray(7)
+    private var trackVolume: Float = 0.5f
+    private var sampleVolume: Float = 1.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // set up mediaPlayer
+        mediaPlayer = MediaPlayer.create(this, R.raw.whiskey)
+        mediaPlayer.setVolume(trackVolume, trackVolume)
 
         // set up spinner
         keys = resources.getStringArray(R.array.keys_array)
@@ -35,18 +42,38 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         // set up track volume seekbar
         val trackVolumeSeekBar: SeekBar = findViewById(R.id.trackVolumeSeekBar)
-        trackVolumeSeekBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int,
-                                           fromUser: Boolean) {
-                Toast.makeText(applicationContext, "seekbar progress: $progress", Toast.LENGTH_SHORT).show()
+        trackVolumeSeekBar.progress = (trackVolume*100).toInt()
+        trackVolumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                trackVolume = progress.toFloat() / 100
+                mediaPlayer.setVolume(trackVolume, trackVolume)
+                Log.d("cp", "track volume: $trackVolume")
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
-                Toast.makeText(applicationContext, "seekbar touch started!", Toast.LENGTH_SHORT).show()
+                Log.d("cp", "start tracking volume seekbar touch")
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                Toast.makeText(applicationContext, "seekbar touch stopped!", Toast.LENGTH_SHORT).show()
+                Log.d("cp", "stop tracking volume seekbar touch")
+            }
+        })
+
+        // set up sample volume seekbar
+        val sampleVolumeSeekBar: SeekBar = findViewById(R.id.sampleVolumeSeekBar)
+        sampleVolumeSeekBar.progress = (sampleVolume*100).toInt()
+        sampleVolumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                sampleVolume = progress.toFloat() / 100
+                Log.d("cp", "sample volume: $sampleVolume")
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                Log.d("cp", "start tracking sample volume touch")
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                Log.d("cp", "stop tracking sample volume touch")
             }
         })
 
@@ -121,31 +148,17 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     fun playSample(v: View) {
         when (v.id) {
-            R.id.s1button -> soundPool.play(sampleArray[0], 1.toFloat(), 1.toFloat(), 0, 0, 1.toFloat())
-            R.id.s2button -> soundPool.play(sampleArray[1], 1.toFloat(), 1.toFloat(), 0, 0, 1.toFloat())
-            R.id.s3button -> soundPool.play(sampleArray[2], 1.toFloat(), 1.toFloat(), 0, 0, 1.toFloat())
-            R.id.s4button -> soundPool.play(sampleArray[3], 1.toFloat(), 1.toFloat(), 0, 0, 1.toFloat())
-            R.id.s5button -> soundPool.play(sampleArray[4], 1.toFloat(), 1.toFloat(), 0, 0, 1.toFloat())
-            R.id.s6button -> soundPool.play(sampleArray[5], 1.toFloat(), 1.toFloat(), 0, 0, 1.toFloat())
-            R.id.s7button -> soundPool.play(sampleArray[6], 1.toFloat(), 1.toFloat(), 0, 0, 1.toFloat())
+            R.id.s1button -> soundPool.play(sampleArray[0], sampleVolume, sampleVolume, 0, 0, 1f)
+            R.id.s2button -> soundPool.play(sampleArray[1], sampleVolume, sampleVolume, 0, 0, 1f)
+            R.id.s3button -> soundPool.play(sampleArray[2], sampleVolume, sampleVolume, 0, 0, 1f)
+            R.id.s4button -> soundPool.play(sampleArray[3], sampleVolume, sampleVolume, 0, 0, 1f)
+            R.id.s5button -> soundPool.play(sampleArray[4], sampleVolume, sampleVolume, 0, 0, 1f)
+            R.id.s6button -> soundPool.play(sampleArray[5], sampleVolume, sampleVolume, 0, 0, 1f)
+            R.id.s7button -> soundPool.play(sampleArray[6], sampleVolume, sampleVolume, 0, 0, 1f)
         }
     }
 
-    fun playWhiskey(view: View) {
-        var mediaPlayer: MediaPlayer? = MediaPlayer.create(this, R.raw.whiskey)
+    fun playMediaPlayer(view: View) {
         mediaPlayer?.start()
-    }
-
-    fun playRemoteClick(view: View) {
-        playRemote()
-    }
-
-    fun playRemote(url: String = "https://www.youtube.com/watch?v=6s8Mmc69CP8") {
-        val mediaPlayer: MediaPlayer? = MediaPlayer().apply {
-            setAudioStreamType(AudioManager.STREAM_MUSIC)
-            setDataSource(url)
-            prepare() // buffer
-            start()
-        }
     }
 }
