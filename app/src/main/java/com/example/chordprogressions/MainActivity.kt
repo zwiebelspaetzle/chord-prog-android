@@ -8,6 +8,7 @@ import android.media.MediaPlayer
 import android.media.SoundPool
 import android.view.View
 import android.media.AudioAttributes
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.util.Log
 import android.widget.*
@@ -21,9 +22,10 @@ private const val READ_REQUEST_CODE: Int = 42
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private val semitones = arrayOf("c", "cs", "d", "ds", "e", "f", "fs", "g", "gs", "a", "as", "b")
     private lateinit var trackUri: Uri
-    private var mediaPlayer: MediaPlayer = MediaPlayer()
     private lateinit var soundPool: SoundPool
     private lateinit var keys: Array<String>
+    private var mediaMetadataRetriever: MediaMetadataRetriever = MediaMetadataRetriever()
+    private var mediaPlayer: MediaPlayer = MediaPlayer()
     private var sampleArray = IntArray(7)
     private var trackVolume: Float = 0.5f
     private var sampleVolume: Float = 1.0f
@@ -101,12 +103,21 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         soundPool.release()
     }
 
+    private fun getTitle(uri: Uri): String {
+        mediaMetadataRetriever.setDataSource(this, uri)
+        var title = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE)
+
+        return title
+    }
+
     private fun loadTrack(uri: Uri) {
         try {
             mediaPlayer.setDataSource(this, uri)
             mediaPlayer.prepareAsync()
+
+            var title = getTitle(uri)
             var trackNameView: TextView = findViewById(R.id.trackNameView)
-            trackNameView.text = uri.toString()
+            trackNameView.text = title
 
         } catch (e: Exception) {
             Toast.makeText(this, "file not found", Toast.LENGTH_SHORT).show()
