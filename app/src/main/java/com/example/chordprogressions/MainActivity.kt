@@ -1,23 +1,27 @@
 package com.example.chordprogressions
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.media.MediaPlayer
 import android.media.SoundPool
 import android.view.View
 import android.media.AudioAttributes
+import android.net.Uri
 import android.util.Log
-import android.widget.AdapterView
-import android.widget.SeekBar
-import android.widget.Spinner
-
+import android.widget.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 val defaultKey = "C"
+private const val READ_REQUEST_CODE: Int = 42
 
 // adding AdapterView.OnItemSelectedListener to handle spinner in same file
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private val semitones = arrayOf("c", "cs", "d", "ds", "e", "f", "fs", "g", "gs", "a", "as", "b")
-    private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var trackUri: Uri
+    private var mediaPlayer: MediaPlayer = MediaPlayer()
     private lateinit var soundPool: SoundPool
     private lateinit var keys: Array<String>
     private var sampleArray = IntArray(7)
@@ -29,8 +33,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         setContentView(R.layout.activity_main)
 
         // set up mediaPlayer
-        mediaPlayer = MediaPlayer.create(this, R.raw.whiskey)
         mediaPlayer.setVolume(trackVolume, trackVolume)
+        mediaPlayer.setOnPreparedListener(MediaPlayer.OnPreparedListener { handleMediaPlayerPrepared() })
 
         // set up spinner
         keys = resources.getStringArray(R.array.keys_array)
@@ -97,6 +101,23 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         soundPool.release()
     }
 
+    private fun loadTrack(uri: Uri) {
+        try {
+            mediaPlayer.setDataSource(this, uri)
+            mediaPlayer.prepareAsync()
+            var trackNameView: TextView = findViewById(R.id.trackNameView)
+            trackNameView.text = uri.toString()
+
+        } catch (e: Exception) {
+            Toast.makeText(this, "file not found", Toast.LENGTH_SHORT).show()
+            e.printStackTrace()
+        }
+    }
+
+    private fun handleMediaPlayerPrepared() {
+        Toast.makeText(this, "prepared", Toast.LENGTH_SHORT).show()
+    }
+
     // handle spinner selection
     override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
         Log.d("cp", "Key ${keys[position]} selected")
@@ -160,5 +181,26 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     fun playMediaPlayer(view: View) {
         mediaPlayer?.start()
+    }
+
+    /**
+     * Fires an intent to spin up the "file chooser" UI and select an image.
+     */
+    fun performFileSearch(view: View) {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "audio/*"
+        }
+
+        startActivityForResult(intent, READ_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            resultData?.data?.also { uri ->
+                Log.i("cp", "Uri: $uri")
+                loadTrack(uri)
+            }
+        }
     }
 }

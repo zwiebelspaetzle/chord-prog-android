@@ -12,6 +12,8 @@
     <string name="key_spinner_prompt">Select Key</string>
     <string name="track_valume_label">Track Volume</string>
     <string name="sample_valume_label">Sample Volume</string>
+    <string name="browse_button_text">Browse...</string>
+    <string name="track_name_view_default">--</string>
     <string-array name="keys_array">
         <item>G♭</item>
         <item>D♭</item>

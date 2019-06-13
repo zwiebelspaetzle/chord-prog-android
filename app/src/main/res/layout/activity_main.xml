@@ -131,4 +131,19 @@
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp" android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/trackVolumeSeekBar"/>
+    <Button
+            android:text="@string/browse_button_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+            android:id="@+id/browseButton"
+            android:onClick="performFileSearch" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/trackNameView" android:layout_marginEnd="16dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/trackNameView"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" tools:layout_editor_absoluteY="536dp"
+            android:id="@+id/trackNameView" app:layout_constraintStart_toEndOf="@+id/browseButton"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp" android:text="@string/track_name_view_default"/>
 </android.support.constraint.ConstraintLayout>
