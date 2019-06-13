@@ -112,6 +112,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun loadTrack(uri: Uri) {
         try {
+            mediaPlayer.reset()
             mediaPlayer.setDataSource(this, uri)
             mediaPlayer.prepareAsync()
 
@@ -120,7 +121,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             trackNameView.text = title
 
         } catch (e: Exception) {
-            Toast.makeText(this, "file not found", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "error loading file", Toast.LENGTH_SHORT).show()
             e.printStackTrace()
         }
     }
