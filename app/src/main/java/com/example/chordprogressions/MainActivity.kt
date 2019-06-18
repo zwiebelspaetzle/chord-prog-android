@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         playPauseButton = findViewById(R.id.playPauseButton)
         playPauseButton.isEnabled = false
         playPauseButton.isClickable = false
-        playPauseButton.setBackgroundColor(Color.WHITE)
+//        playPauseButton.setBackgroundColor(Color.WHITE)
 
         // set up mediaPlayer
         mediaPlayer.setVolume(trackVolume, trackVolume)
@@ -135,10 +135,18 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
+    fun handlePlayPauseClick(view: View) {
+        if (mediaPlayer.isPlaying) {
+            mediaPlayer.pause()
+        } else {
+            mediaPlayer.start()
+        }
+    }
+
     private fun handleMediaPlayerPrepared() {
         playPauseButton.isEnabled = true
         playPauseButton.isClickable = true
-        playPauseButton.setBackgroundColor(Color.GREEN)
+//        playPauseButton.setBackgroundColor(Color.LTGRAY)
         Toast.makeText(this, "prepared", Toast.LENGTH_SHORT).show()
     }
 
@@ -201,10 +209,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             R.id.s6button -> soundPool.play(sampleArray[5], sampleVolume, sampleVolume, 0, 0, 1f)
             R.id.s7button -> soundPool.play(sampleArray[6], sampleVolume, sampleVolume, 0, 0, 1f)
         }
-    }
-
-    fun playMediaPlayer(view: View) {
-        mediaPlayer?.start()
     }
 
     /**
