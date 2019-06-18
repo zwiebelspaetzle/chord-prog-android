@@ -2,6 +2,7 @@ package com.example.chordprogressions
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.media.MediaPlayer
@@ -10,6 +11,7 @@ import android.view.View
 import android.media.AudioAttributes
 import android.media.MediaMetadataRetriever
 import android.net.Uri
+import android.support.v7.widget.AppCompatImageButton
 import android.util.Log
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var trackUri: Uri
     private lateinit var soundPool: SoundPool
     private lateinit var keys: Array<String>
+    private lateinit var playPauseButton: AppCompatImageButton
     private var mediaMetadataRetriever: MediaMetadataRetriever = MediaMetadataRetriever()
     private var mediaPlayer: MediaPlayer = MediaPlayer()
     private var sampleArray = IntArray(7)
@@ -33,6 +36,12 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // set up play/pause button
+        playPauseButton = findViewById(R.id.playPauseButton)
+        playPauseButton.isEnabled = false
+        playPauseButton.isClickable = false
+        playPauseButton.setBackgroundColor(Color.WHITE)
 
         // set up mediaPlayer
         mediaPlayer.setVolume(trackVolume, trackVolume)
@@ -127,6 +136,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun handleMediaPlayerPrepared() {
+        playPauseButton.isEnabled = true
+        playPauseButton.isClickable = true
+        playPauseButton.setBackgroundColor(Color.GREEN)
         Toast.makeText(this, "prepared", Toast.LENGTH_SHORT).show()
     }
 

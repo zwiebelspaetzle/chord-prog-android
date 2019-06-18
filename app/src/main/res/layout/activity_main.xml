@@ -16,24 +16,18 @@
             android:onClick="playSample"
             android:layout_marginStart="16dp"
             app:layout_constraintEnd_toStartOf="@+id/s5button" android:layout_marginEnd="16dp"
-            android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/button3"
-            app:layout_constraintHorizontal_bias="0.5" style="@style/AppTheme" android:soundEffectsEnabled="false"/>
-    <Button
-            android:text="@string/button_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/button3" android:onClick="playMediaPlayer"
-            android:soundEffectsEnabled="false"/>
+            app:layout_constraintHorizontal_bias="0.5" style="@style/AppTheme" android:soundEffectsEnabled="false"
+            android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/browseButton"/>
     <Button
             android:text="@string/button_5th"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/s5button"
             android:onClick="playSample" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp" android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/button3" app:layout_constraintStart_toEndOf="@+id/s1button"
-            app:layout_constraintHorizontal_bias="0.5" style="@style/AppTheme" android:soundEffectsEnabled="false"/>
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@+id/s1button"
+            app:layout_constraintHorizontal_bias="0.5" style="@style/AppTheme" android:soundEffectsEnabled="false"
+            android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/browseButton"/>
     <Spinner
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -133,18 +127,30 @@
             app:layout_constraintTop_toBottomOf="@+id/trackVolumeSeekBar"/>
     <Button
             android:text="@string/browse_button_text"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
             android:id="@+id/browseButton"
-            android:onClick="performFileSearch" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintEnd_toStartOf="@+id/trackNameView" android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/sampleVolumeLabel"/>
+            android:onClick="performFileSearch"
+            app:layout_constraintEnd_toStartOf="@+id/trackNameView"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toEndOf="@+id/playPauseButton"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.5" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"/>
     <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/trackNameView" app:layout_constraintStart_toEndOf="@+id/browseButton"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp" android:text="@string/track_name_view_default"
-            app:layout_constraintBaseline_toBaselineOf="@+id/browseButton"/>
+            android:id="@+id/trackNameView"
+            android:text="@string/track_name_view_default"
+            app:layout_constraintBaseline_toBaselineOf="@+id/browseButton" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toEndOf="@+id/browseButton"
+            app:layout_constraintHorizontal_bias="0.5"/>
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="48dp" app:srcCompat="@android:drawable/ic_media_play"
+            android:id="@+id/playPauseButton"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/browseButton" android:onClick="playMediaPlayer"
+            android:soundEffectsEnabled="false" android:hapticFeedbackEnabled="true" android:clickable="false"
+    />
 </android.support.constraint.ConstraintLayout>
