@@ -138,15 +138,17 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     fun handlePlayPauseClick(view: View) {
         if (mediaPlayer.isPlaying) {
             mediaPlayer.pause()
+            playPauseButton.setImageResource(R.drawable.ic_baseline_play_arrow_24px)
         } else {
             mediaPlayer.start()
+            playPauseButton.setImageResource(R.drawable.ic_baseline_pause_24px)
         }
     }
 
     private fun handleMediaPlayerPrepared() {
         playPauseButton.isEnabled = true
         playPauseButton.isClickable = true
-//        playPauseButton.setBackgroundColor(Color.LTGRAY)
+        playPauseButton.setColorFilter(Color.BLACK)
         Toast.makeText(this, "prepared", Toast.LENGTH_SHORT).show()
     }
 
