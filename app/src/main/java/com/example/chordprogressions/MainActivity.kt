@@ -18,13 +18,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 const val defaultKey = "C"
-const val defaultScale = "major"
+const val defaultScale = "Major"
 private const val READ_REQUEST_CODE: Int = 42
 
 // adding AdapterView.OnItemSelectedListener to handle spinner in same file
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private val semitones = arrayOf("c", "cs", "d", "ds", "e", "f", "fs", "g", "gs", "a", "as", "b")
-    val semitoneSequenceMap = mapOf("major" to intArrayOf(0, 2, 4, 5, 7, 9, 11), "minor" to intArrayOf(0, 2, 3, 5, 7, 8, 10))
+    val semitoneSequenceMap = mapOf(
+        "Major" to intArrayOf(0, 2, 4, 5, 7, 9, 11),
+        "Minor" to intArrayOf(0, 2, 3, 5, 7, 8, 10),
+        "Mixolydian" to intArrayOf(0, 2, 4, 5, 7, 9, 10)
+    )
     private lateinit var soundPool: SoundPool
     private lateinit var playPauseButton: AppCompatImageButton
     private lateinit var keys: Array<String>
@@ -167,14 +171,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
         Log.e("cp", "selection!")
         when (parent?.id) {
-            R.id.keySpinner -> {
-                key = keys[position]
-                Log.d("cp", "Key ${keys[position]} selected")
-            }
-            R.id.scaleSpinner -> {
-                scale = scales[position]
-                Log.d("cp", "Scale ${scales[position]} selected")
-            }
+            R.id.keySpinner -> key = keys[position]
+            R.id.scaleSpinner -> scale = scales[position]
             else -> Log.d("cp", "Selection failed :(")
         }
 
