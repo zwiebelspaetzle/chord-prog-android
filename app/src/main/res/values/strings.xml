@@ -9,10 +9,10 @@
     <string name="button_7th">viiº</string>
     <string name="button_play">Whiskey Before Breakfast</string>
     <string name="text_key">Key:</string>
-    <string name="text_scale">Scale:</string>
+    <string name="text_scale">Mode:</string>
     <string name="key_spinner_prompt">Select Key</string>
-    <string name="track_valume_label">Track Volume</string>
-    <string name="sample_valume_label">Sample Volume</string>
+    <string name="track_volume_label">Track Volume</string>
+    <string name="sample_volume_label">Sample Volume</string>
     <string name="browse_button_text">Browse...</string>
     <string name="track_name_view_default">[No track loaded]</string>
     <string-array name="keys_array">
@@ -30,8 +30,8 @@
         <item>B</item>
     </string-array>
     <string-array name="scales_array">
-        <item>major</item>
-        <item>minor</item>
-        <item>mixolydian</item>
+        <item>Major</item>
+        <item>Minor</item>
+        <item>Mixolydian</item>
     </string-array>
 </resources>
