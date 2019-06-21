@@ -14,8 +14,9 @@ import android.net.Uri
 import android.support.v7.widget.AppCompatImageButton
 import android.util.Log
 import android.widget.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
+
+//import kotlinx.android.synthetic.main.activity_main.*
+//import kotlinx.android.synthetic.main.activity_main.view.*
 
 const val defaultKey = "C"
 const val defaultScale = "Major"
@@ -29,10 +30,16 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         "Minor" to intArrayOf(0, 2, 3, 5, 7, 8, 10),
         "Mixolydian" to intArrayOf(0, 2, 4, 5, 7, 9, 10)
     )
+    val chordSequenceMap = mapOf(
+        "Major" to arrayOf("I", "ii", "iii", "IV", "V", "vi", "viiº"),
+        "Minor" to arrayOf("i", "iiº", "III", "iv", "v", "VI", "VII"),
+        "Mixolydian" to arrayOf("I", "ii", "iiiº", "IV", "v", "vi", "VII")
+    )
     private lateinit var soundPool: SoundPool
     private lateinit var playPauseButton: AppCompatImageButton
     private lateinit var keys: Array<String>
     private lateinit var scales: Array<String>
+    private lateinit var sampleButtons: Array<Button>
     private var key = defaultKey.toLowerCase()
     private var scale = defaultScale
     private var mediaMetadataRetriever: MediaMetadataRetriever = MediaMetadataRetriever()
@@ -53,6 +60,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         // set up mediaPlayer
         mediaPlayer.setVolume(trackVolume, trackVolume)
         mediaPlayer.setOnPreparedListener(MediaPlayer.OnPreparedListener { handleMediaPlayerPrepared() })
+
+        // set up sample buttons
+        sampleButtons = Array(7) { i -> findViewById<Button>(this.resources.getIdentifier("s"+(i+1)+"button","id", this.packageName))}
 
         // set up key spinner
         keys = resources.getStringArray(R.array.keys_array)
@@ -79,14 +89,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 mediaPlayer.setVolume(trackVolume, trackVolume)
                 Log.d("cp", "track volume: $trackVolume")
             }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-                Log.d("cp", "start tracking volume seekbar touch")
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-                Log.d("cp", "stop tracking volume seekbar touch")
-            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
         // set up sample volume seekbar
@@ -97,16 +101,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 sampleVolume = progress.toFloat() / 100
                 Log.d("cp", "sample volume: $sampleVolume")
             }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-                Log.d("cp", "start tracking sample volume touch")
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-                Log.d("cp", "stop tracking sample volume touch")
-            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
+        // set up soundPool
         val audioAttributes = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_GAME)
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -169,7 +168,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     // handle spinner selection
     override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
-        Log.e("cp", "selection!")
         when (parent?.id) {
             R.id.keySpinner -> key = keys[position]
             R.id.scaleSpinner -> scale = scales[position]
@@ -192,6 +190,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 this,
                 this.resources.getIdentifier("db_"+notesInScale[i]+"_48k","raw", this.packageName),
                 1)
+        }
+        for ((i, thisButton) in sampleButtons.withIndex()) {
+            thisButton?.text = chordSequenceMap.getValue(scale)[i]
         }
     }
 
