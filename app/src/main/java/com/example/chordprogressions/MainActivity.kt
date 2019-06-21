@@ -189,7 +189,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun setSamples() {
         val notesInScale = getNotesInScale()
-        for ((i, note) in scale.withIndex()) {
+        for ((i, note) in notesInScale.withIndex()) {
             sampleArray[i] = soundPool.load(
                 this,
                 this.resources.getIdentifier("db_"+notesInScale[i]+"_48k","raw", this.packageName),
@@ -200,14 +200,14 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private fun getNotesInScale(): Array<String?> {
         val root = semitones.indexOf(getScaleRoot(key))
         val semitoneSequence = semitoneSequenceMap[scale]
-        var scale = arrayOfNulls<String>(7)
+        var notesInScale = arrayOfNulls<String>(7)
 
         for ((i, offset) in semitoneSequence!!.withIndex()) {
             val index = if (root + offset < semitones.count()) root + offset else root + offset - semitones.count()
-            scale[i] = semitones[index]
+            notesInScale[i] = semitones[index]
         }
 
-        return scale
+        return notesInScale
     }
 
     // just some translation from human-formatted keys to note file names
