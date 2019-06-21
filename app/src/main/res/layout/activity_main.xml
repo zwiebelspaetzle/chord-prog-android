@@ -31,12 +31,12 @@
     <Spinner
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/keySpinner"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toEndOf="@+id/editText"
-            app:layout_constraintBaseline_toBaselineOf="@+id/editText" android:spinnerMode="dropdown"
-            android:entries="@array/keys_array" android:prompt="@string/key_spinner_prompt"/>
+            android:spinnerMode="dropdown"
+            android:entries="@array/keys_array" android:prompt="@string/key_spinner_prompt"
+            app:layout_constraintStart_toEndOf="@+id/editText" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" app:layout_constraintBaseline_toBaselineOf="@+id/editText"/>
     <Button
             android:text="@string/button_2nd"
             android:layout_width="0dp"
@@ -89,10 +89,11 @@
             android:layout_height="wrap_content"
             android:text="@string/text_key"
             android:ems="10"
-            android:id="@+id/editText" android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/s4button" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" app:layout_constraintEnd_toStartOf="@+id/keySpinner"
-            android:layout_marginEnd="16dp" android:textAlignment="viewEnd"/>
+            android:id="@+id/editText"
+            android:textAlignment="viewEnd"
+            app:layout_constraintStart_toEndOf="@+id/scaleSpinner"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/keySpinner"
+            android:layout_marginStart="16dp" app:layout_constraintBaseline_toBaselineOf="@+id/scaleSpinner"/>
     <TextView
             android:text="@string/track_valume_label"
             android:layout_width="wrap_content"
@@ -153,4 +154,19 @@
             app:layout_constraintEnd_toStartOf="@+id/browseButton" android:onClick="handlePlayPauseClick"
             android:soundEffectsEnabled="false" android:hapticFeedbackEnabled="true" android:clickable="false"
             android:tint="#C0C0C0"/>
+    <TextView
+            android:text="@string/text_scale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/scaleSpinner"
+            android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/s4button"
+            android:textAlignment="viewEnd"/>
+    <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/scaleSpinner" app:layout_constraintStart_toEndOf="@+id/textView"
+            android:layout_marginStart="16dp" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/editText" android:entries="@array/scales_array"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView"/>
 </android.support.constraint.ConstraintLayout>

@@ -9,6 +9,7 @@
     <string name="button_7th">viiº</string>
     <string name="button_play">Whiskey Before Breakfast</string>
     <string name="text_key">Key:</string>
+    <string name="text_scale">Scale:</string>
     <string name="key_spinner_prompt">Select Key</string>
     <string name="track_valume_label">Track Volume</string>
     <string name="sample_valume_label">Sample Volume</string>
@@ -27,5 +28,10 @@
         <item>A</item>
         <item>E</item>
         <item>B</item>
+    </string-array>
+    <string-array name="scales_array">
+        <item>major</item>
+        <item>minor</item>
+        <item>mixolydian</item>
     </string-array>
 </resources>

@@ -17,16 +17,20 @@ import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
-val defaultKey = "C"
+const val defaultKey = "C"
+const val defaultScale = "major"
 private const val READ_REQUEST_CODE: Int = 42
 
 // adding AdapterView.OnItemSelectedListener to handle spinner in same file
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private val semitones = arrayOf("c", "cs", "d", "ds", "e", "f", "fs", "g", "gs", "a", "as", "b")
-    private lateinit var trackUri: Uri
+    val semitoneSequenceMap = mapOf("major" to intArrayOf(0, 2, 4, 5, 7, 9, 11), "minor" to intArrayOf(0, 2, 3, 5, 7, 8, 10))
     private lateinit var soundPool: SoundPool
-    private lateinit var keys: Array<String>
     private lateinit var playPauseButton: AppCompatImageButton
+    private lateinit var keys: Array<String>
+    private lateinit var scales: Array<String>
+    private var key = defaultKey.toLowerCase()
+    private var scale = defaultScale
     private var mediaMetadataRetriever: MediaMetadataRetriever = MediaMetadataRetriever()
     private var mediaPlayer: MediaPlayer = MediaPlayer()
     private var sampleArray = IntArray(7)
@@ -41,18 +45,25 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         playPauseButton = findViewById(R.id.playPauseButton)
         playPauseButton.isEnabled = false
         playPauseButton.isClickable = false
-//        playPauseButton.setBackgroundColor(Color.WHITE)
 
         // set up mediaPlayer
         mediaPlayer.setVolume(trackVolume, trackVolume)
         mediaPlayer.setOnPreparedListener(MediaPlayer.OnPreparedListener { handleMediaPlayerPrepared() })
 
-        // set up spinner
+        // set up key spinner
         keys = resources.getStringArray(R.array.keys_array)
         val keySpinner: Spinner = findViewById(R.id.keySpinner)
         with(keySpinner) {
             onItemSelectedListener = this@MainActivity
             setSelection(keys.indexOf(defaultKey))
+        }
+
+        // set up scale spinner
+        scales = resources.getStringArray(R.array.scales_array)
+        val scaleSpinner: Spinner = findViewById(R.id.scaleSpinner)
+        with(scaleSpinner) {
+            onItemSelectedListener = this@MainActivity
+            setSelection(scales.indexOf(defaultScale))
         }
 
         // set up track volume seekbar
@@ -104,7 +115,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             .build()
 
         // set samples from our selected key
-        setSamplesFromKey(keys[keySpinner.selectedItemPosition].toLowerCase())
+        setSamples()
     }
 
     override fun onDestroy() {
@@ -154,8 +165,20 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     // handle spinner selection
     override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
-        Log.d("cp", "Key ${keys[position]} selected")
-        setSamplesFromKey(keys[position])
+        Log.e("cp", "selection!")
+        when (parent?.id) {
+            R.id.keySpinner -> {
+                key = keys[position]
+                Log.d("cp", "Key ${keys[position]} selected")
+            }
+            R.id.scaleSpinner -> {
+                scale = scales[position]
+                Log.d("cp", "Scale ${scales[position]} selected")
+            }
+            else -> Log.d("cp", "Selection failed :(")
+        }
+
+        setSamples()
     }
 
     // required for Spinner
@@ -164,22 +187,22 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
 
-    private fun setSamplesFromKey(key: String) {
-        val scale = getScale(key)
+    private fun setSamples() {
+        val notesInScale = getNotesInScale()
         for ((i, note) in scale.withIndex()) {
             sampleArray[i] = soundPool.load(
                 this,
-                this.resources.getIdentifier("db_"+scale[i]+"_48k","raw", this.packageName),
+                this.resources.getIdentifier("db_"+notesInScale[i]+"_48k","raw", this.packageName),
                 1)
         }
     }
 
-    private fun getScale(key: String): Array<String?> {
-        val semitoneSequence: IntArray = intArrayOf(0, 2, 4, 5, 7, 9, 11)
+    private fun getNotesInScale(): Array<String?> {
         val root = semitones.indexOf(getScaleRoot(key))
+        val semitoneSequence = semitoneSequenceMap[scale]
         var scale = arrayOfNulls<String>(7)
 
-        for ((i, offset) in semitoneSequence.withIndex()) {
+        for ((i, offset) in semitoneSequence!!.withIndex()) {
             val index = if (root + offset < semitones.count()) root + offset else root + offset - semitones.count()
             scale[i] = semitones[index]
         }
